@@ -3,20 +3,72 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Helsinki-East Aerodrome</title>
   <meta name="description" content="helsinki-east is a multi-functional smart aerodrome 60 mins east of helsinki by road">
 
   <style>
-    .bg-blue-900 {
-      background-color: #03313c !important;
-    }
     .h-screen-half {
       height: 50vh;
     }
   </style>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <script type="text/javascript" src="http://livejs.com/live.js"></script>
+  <style>
+    .bg-blue-900 {
+      background-color: #03313c;
+    }
+    .active {
+      display: block; 
+    }
+    @-webkit-keyframes ticker {
+      0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+      }
+      100% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+    @keyframes ticker {
+      0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+      }
+      100% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      padding-left: 100%;
+      box-sizing: content-box;
+    }
+    .ticker-wrap .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 100%;
+      box-sizing: content-box;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      -webkit-animation-name: ticker;
+      animation-name: ticker;
+      -webkit-animation-duration: 30s;
+      animation-duration: 30s;
+    }
+    .ticker-wrap .ticker__item {
+      display: inline-block;
+      padding: 0 2rem;
+    }
+  </style>
 
 </head>
 
@@ -27,11 +79,11 @@
     <span class="font-semibold text-xl tracking-tight">Helsinki East Aerodrome</span>
   </div>
   <div class="block md:hidden">
-    <button class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
+    <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
       <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
     </button>
   </div>
-  <div class="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-end">
+  <div id="menu-block" class="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-end hidden md:block">
     <div class="text-sm uppercase">
       <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
         Aerodrome
@@ -51,60 +103,80 @@
     </div>
   </div>
 </nav>
-<section class="relative h-screen bg-cover bg-center" style="background-image: url('/landing-bg.png')">
+<section class="relative h-screen bg-cover bg-center" style="background-image: url('landing-bg.png')">
   <div class="absolute bottom-0 w-full flex justify-between bg-white p-6 bg-blue-900 text-sm text-white">
-    <div>ATIS BROADCAST runs here</div>
+    <div class="overflow-hidden mr-8 lg:mr-32">
+      <div class="ticker-wrap">
+        <div class="ticker">
+          <div class="ticker__item">
+          15:50 UTC
+          </div>
+          <div class="ticker__item">
+          Wind: 350° 15kt
+          </div>
+          <div class="ticker__item">
+          Visibility: 9999 m
+          </div>
+          <div class="ticker__item">
+          Sky: FEW 4000 ft
+          </div>
+          <div class="ticker__item">
+          Temp: 11 deg C / 52 deg F
+          </div>
+          <div class="ticker__item">
+          Dewpoint: 1 deg C / 34 deg F
+          </div>
+          <div class="ticker__item">
+          Pressure: 1017 hPa
+          </div>
+        </div>
+      </div>
+    </div>
     <div>Redstoneaero</div>
   </div>
 </section>
-<section class="grid lg:grid-cols-2">
-  <div class="h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
-    <div class="text-center p-10">
-      <h1 class="text-6xl text-white uppercase">Aerodrome</h1>
-      <h2 class="text-2xl text-white uppercase">Hub for aviation industry</h2>
+<section class="md:flex">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
+    <div class="text-center md:p-10">
+      <h1 class="text-2xl md:text-6xl text-white uppercase">Aerodrome</h1>
+      <h2 class="text-xl md:text-2xl text-white uppercase">Hub for aviation industry</h2>
       <p class="text-sm text-gray-500">Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
       <a class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-10 inline-block">
         Read more
       </a>
     </div>
   </div>
-  <div class="h-screen-half lg:h-screen bg-gray-500">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500">
   </div>
 </section>
-<section class="grid lg:grid-cols-2">
-  <div class="h-screen-half lg:h-screen bg-gray-500">
-  </div>
-  <div class="h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
-    <div class="text-center p-10">
-      <h1 class="text-6xl text-white uppercase">Aerodrome</h1>
-      <h2 class="text-2xl text-white uppercase">Hub for aviation industry</h2>
+<section class="md:flex">
+  <div class="md:w-1/2 md:order-last h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
+    <div class="text-center md:p-10">
+      <h1 class="text-2xl md:text-6xl text-white uppercase">Aerodrome</h1>
+      <h2 class="text-xl md:text-2xl text-white uppercase">Hub for aviation industry</h2>
       <p class="text-sm text-gray-500">Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
       <a class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-10 inline-block">
         Read more
       </a>
     </div>
   </div>
-</section>
-<section class="grid lg:grid-cols-2">
-  <div class="h-screen-half lg:h-screen bg-gray-500">
-  </div>
-  <div class="h-screen bg-blue-900 flex items-center">
-    <div class="text-center p-10">
-      <h1>Aerodrome</h1>
-      <h2>Hub for aviation industry</h2>
-      <p>Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
-      <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Button
-      </a>
-    </div>
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500">
   </div>
 </section>
-<section class="h-screen bg-gray-400 bg-cover bg-center" style="background-image: url('/middle-banner.png')">
+<section class="h-screen bg-gray-400 bg-cover bg-center" style="background-image: url('middle-banner.png')">
 </section>
 <section class="h-screen bg-gray-200">
   <h1>Collaborators</h1>
 </section>
 <section class="h-screen">
 </section>
+<script>
+    let hamburger = document.getElementById('menu-toggle');
+    let menu = document.getElementById('menu-block');
+
+    hamburger.addEventListener('click', function(){
+        menu.classList.toggle('active');
+    });
+</script>
 </body>
 </html>
