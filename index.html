@@ -68,6 +68,15 @@
       display: inline-block;
       padding: 0 2rem;
     }
+    .toggle-on-visible {
+      transition: background 0.8s ease;
+    }
+    .toggle-on-visible.visible {
+      background: white;
+    }
+    .dropdown:hover .hidden {
+      display: block;
+    }
   </style>
 
 </head>
@@ -85,21 +94,42 @@
   </div>
   <div id="menu-block" class="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-end hidden md:block">
     <div class="text-sm uppercase">
-      <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        Aerodrome
-      </a>
-      <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        Lift
-      </a>
-      <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        Technology Park
-      </a>
-      <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        News
-      </a>
-      <a href="#responsive-header" class="block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        Contact Us
-      </a>
+      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
+        <a href="#responsive-header" class="tracking-wide">Aerodrome</a>
+        <div class="origin-top-right absolute right-0 hidden">
+          <div class="py-1" role="menu" aria-orientation="vertical">
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Briefing</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Weather</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Hangars</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
+        <a href="#responsive-header" class="tracking-wide">Lift</a>
+      </div>
+      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
+        <a href="#responsive-header" class="tracking-wide">Technology park</a>
+      </div>
+      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
+        <a href="#responsive-header" class="tracking-wide">Contact us</a>
+        <div class="origin-top-right absolute right-0 hidden">
+          <div class="py-1" role="menu" aria-orientation="vertical">
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Contact information</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Team</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Calendar</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
+        <a href="#responsive-header" class="tracking-wide">News</a>
+        <div class="origin-top-right absolute right-0 hidden">
+          <div class="py-1" role="menu" aria-orientation="vertical">
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Blog</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Social Media Feed</a>
+            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">News Feed</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -146,21 +176,21 @@
       </a>
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 toggle-on-visible">
   </div>
 </section>
 <section class="md:flex">
   <div class="md:w-1/2 md:order-last h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
     <div class="text-center md:p-10">
-      <h1 class="text-2xl md:text-6xl text-white uppercase">Aerodrome</h1>
-      <h2 class="text-xl md:text-2xl text-white uppercase">Hub for aviation industry</h2>
+      <h1 class="text-2xl md:text-6xl text-white uppercase">Lift</h1>
+      <h2 class="text-xl md:text-2xl text-white uppercase">Future aviation testbed & network</h2>
       <p class="text-sm text-gray-500">Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
       <a class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-10 inline-block">
         Read more
       </a>
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 toggle-on-visible">
   </div>
 </section>
 <section class="h-screen bg-gray-400 bg-cover bg-center" style="background-image: url('middle-banner.png')">
@@ -168,15 +198,53 @@
 <section class="h-screen bg-gray-200">
   <h1>Collaborators</h1>
 </section>
-<section class="h-screen">
+<section class="bg-blue-900">
+  <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer-bg.png')"></div>
+  <div class="text-center text-white py-12">
+    <h1 class="text-4xl">Helsinki East Aerodrome</h1>
+    <p class="uppercase mt-8">Another nice slogan goes right here</p>
+    <p class="text-xs text-gray-400 mt-12 max-w-sm mx-auto">While most of the styles in Preflight are meant to go unnoticed — they simply make things behave more like you'd expect them to — some are more opinionated and can be surprising when you first encounter them.</p>
+  </div>
 </section>
 <script>
-    let hamburger = document.getElementById('menu-toggle');
-    let menu = document.getElementById('menu-block');
+  let hamburger = document.getElementById('menu-toggle');
+  let menu = document.getElementById('menu-block');
 
-    hamburger.addEventListener('click', function(){
-        menu.classList.toggle('active');
+  hamburger.addEventListener('click', function(){
+      menu.classList.toggle('active');
+  });
+
+
+
+
+  const options = {
+    root: null, // use the document's viewport as the container
+    rootMargin: '0px', // % or px - offsets added to each side of the intersection 
+    threshold: 0.5 // percentage of the target element which is visible
+  }
+  
+  let callback = (entries) => { 
+    entries.forEach(entry => {
+      
+      // If entry (box) is visible - according with the params set in `options`
+      // then adds `isVisible` class to box
+      // otherwise removes `isVisible` class
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');    
+      }
+  
     });
+  }
+  
+  // Create the intersection observer instance by calling its constructor and passing it a
+  // callback function to be run whenever a threshold is crossed in one direction or the other:
+  let observer = new IntersectionObserver(callback, options);
+  
+  // Get all the `.box` from DOM and attach the observer to these
+  document.querySelectorAll('.toggle-on-visible')
+	.forEach(box => { observer.observe(box) });
 </script>
 </body>
 </html>
