@@ -8,6 +8,10 @@
   <title>Helsinki-East Aerodrome</title>
   <meta name="description" content="helsinki-east is a multi-functional smart aerodrome 60 mins east of helsinki by road">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script>var exports = {};</script>
+  <script src="https://cdn.jsdelivr.net/npm/@contentful/rich-text-html-renderer@14.1.1/dist/rich-text-html-renderer.es5.js"></script>
 
   <style>
     .h-screen-half {
@@ -15,7 +19,6 @@
     }
   </style>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-  <script type="text/javascript" src="http://livejs.com/live.js"></script>
   <style>
     html {
       font-family: 'Roboto', sans-serif;
@@ -81,66 +84,58 @@
     .dropdown:hover .hidden {
       display: block;
     }
+    .bg-shark {
+      background-color: #252a2c;
+    }
+    .bg-gurkha {
+      background-color: #96958d;
+    }
+    .image-gallery.hover-effect img {
+      filter: grayscale(1);
+    }
+    .image-gallery.hover-effect img:hover {
+      filter: grayscale(0);
+    }
   </style>
 </head>
 
 <body>
-<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10">
-  <div class="flex items-center flex-shrink-0 text-white">
-    <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-    <span class="font-semibold text-xl tracking-tight">Helsinki East Aerodrome</span>
+<div id="content">
+</div>
+
+<script id="full-screen-section-template" type="text/x-handlebars-template">
+<section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-4 bg-cover bg-center bg-shark" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
+  <div class="flex flex-col items-center full-screen-section-text">
+    <style>
+      .full-screen-section-text h1 {
+        text-transform: uppercase;
+        font-size: 40px;
+        color: white;
+        margin-top: 100px;
+      }
+      .full-screen-section-text h2 {
+        text-transform: uppercase;
+        font-size: 30px;
+        color: white;
+      }
+      .full-screen-section-text p {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: gray;
+        width: 320px;
+        text-align: center;
+      } 
+    </style>
+    {{{richTextRender fields.textBlock}}}
   </div>
-  <div class="block md:hidden">
-    <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
-      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-    </button>
+  {{#if fields.imageGallery}}
+  <div class="grid grid-cols-3 gap-2 image-gallery">
+    {{#each fields.imageGallery}}
+      <img class="w-full grayscale" src="{{fields.file.url}}" />
+    {{/each}}
   </div>
-  <div id="menu-block" class="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-end hidden md:block">
-    <div class="text-sm uppercase">
-      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-        <a href="#responsive-header" class="tracking-wide">Aerodrome</a>
-        <div class="origin-top-right absolute right-0 hidden">
-          <div class="py-1" role="menu" aria-orientation="vertical">
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Briefing</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Weather</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Hangars</a>
-          </div>
-        </div>
-      </div>
-      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        <a href="#responsive-header" class="tracking-wide">Lift</a>
-      </div>
-      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
-        <a href="#responsive-header" class="tracking-wide">Technology park</a>
-      </div>
-      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-        <a href="#responsive-header" class="tracking-wide">Contact us</a>
-        <div class="origin-top-right absolute right-0 hidden">
-          <div class="py-1" role="menu" aria-orientation="vertical">
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Contact information</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Team</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Calendar</a>
-          </div>
-        </div>
-      </div>
-      <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-        <a href="#responsive-header" class="tracking-wide">News</a>
-        <div class="origin-top-right absolute right-0 hidden">
-          <div class="py-1" role="menu" aria-orientation="vertical">
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Blog</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Social Media Feed</a>
-            <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">News Feed</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-<section class="relative h-screen bg-cover bg-center" style="background-image: url('landing-bg.jpg')">
-  <div class="flex flex-col items-center">
-    <h1 class="uppercase text-4xl text-white mt-32">Important slogan</h1>
-    <p class="uppercase text-gray-800 text-xs w-1/4 text-center">Helsinki east is a multi-functional smart aerodrome 60 mins east of helsinki by road</p>
-  </div>
+  {{/if}}
+  {{#if fields.showAtisBroadcast}}
   <div class="absolute bottom-0 w-full flex justify-between p-6 text-sm text-white">
     <div class="overflow-hidden mr-8 lg:mr-32">
       <div class="ticker-wrap">
@@ -171,40 +166,121 @@
     </div>
     <div>Redstoneaero</div>
   </div>
+  {{/if}}
 </section>
-<section class="md:flex">
+</script>
+
+<script id="text-image-section-template" type="text/x-handlebars-template">
+<section class="md:flex text-image-section">
   <div class="md:w-1/2 h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
-    <div class="text-center md:p-10">
-      <h1 class="text-2xl md:text-6xl text-white uppercase">Aerodrome</h1>
-      <h2 class="text-xl md:text-2xl text-white uppercase">Hub for aviation industry</h2>
-      <p class="text-sm text-gray-500">Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
-      <a class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-10 inline-block">
-        Read more
-      </a>
+    <style>
+      .text-image-section-text-block h1 {
+        line-height: 1.5;
+        font-family: 'Roboto', sans-serif;
+        --bg-opacity: 1;
+        text-align: center;
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e2e8f0;
+        margin: 0;
+        font-weight: inherit;
+        --text-opacity: 1;
+        color: rgba(255,255,255,var(--text-opacity));
+        text-transform: uppercase;
+        font-size: 4rem;
+      }
+      .text-image-section-text-block h2 {
+       line-height: 1.5;
+       font-family: 'Roboto', sans-serif;
+       --bg-opacity: 1;
+       text-align: center;
+       box-sizing: border-box;
+       border-width: 0;
+       border-style: solid;
+       border-color: #e2e8f0;
+       margin: 0;
+       font-weight: inherit;
+       --text-opacity: 1;
+       color: rgba(255,255,255,var(--text-opacity));
+       text-transform: uppercase;
+       font-size: 1.5rem; 
+      }
+      .text-image-section-text-block p {
+        line-height: 1.5;
+        font-family: 'Roboto', sans-serif;
+        --bg-opacity: 1;
+        text-align: center;
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e2e8f0;
+        margin: 0;
+        font-size: .875rem;
+        --text-opacity: 1;
+        color: rgba(160,174,192,var(--text-opacity));
+      }
+      .text-image-section:nth-of-type(2n+1) > div:first-of-type {
+        order: 2;
+      }
+    </style>
+    <div class="text-center md:p-10 text-image-section-text-block">
+      {{{richTextRender fields.textBlock}}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 toggle-on-visible">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
   </div>
 </section>
-<section class="md:flex">
-  <div class="md:w-1/2 md:order-last h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
-    <div class="text-center md:p-10">
-      <h1 class="text-2xl md:text-6xl text-white uppercase">Lift</h1>
-      <h2 class="text-xl md:text-2xl text-white uppercase">Future aviation testbed & network</h2>
-      <p class="text-sm text-gray-500">Tailwind doesn't include pre-designed navigation components out of the box, but they're easy to build using existing utilities.</p>
-      <a class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-10 inline-block">
-        Read more
-      </a>
+</script>
+
+<script id="image-grid-template" type="text/x-handlebars-template">
+<section class="py-4 px-12 bg-shark">
+  {{{richTextRender fields.topText}}}
+  {{#if fields.images}}
+  <div class="grid grid-cols-3 grid-cols-{{fields.columns}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
+    {{#each fields.images}}
+      <img class="w-full grayscale" src="{{fields.file.url}}" />
+    {{/each}}
+  </div>
+  {{/if}}
+</section>
+</script>
+
+<script id="entry-template" type="text/x-handlebars-template">
+<div class="entry {{sys.contentType.sys.id}}">
+<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10">
+  <img class="w-48" src="{{fields.menu.fields.logo.fields.file.url}}">
+  <div class="block md:hidden">
+    <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+    </button>
+  </div>
+  <div id="menu-block" class="w-full block flex-grow md:flex md:items-center md:w-auto md:justify-end hidden md:block">
+    <div class="text-sm uppercase">
+      {{#each fields.menu.fields.links}}
+        {{#if fields.dropdownItems}}
+          <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
+            <a href="#responsive-header" class="tracking-wide">{{fields.title}}</a>
+            <div class="origin-top-right absolute right-0 hidden">
+              <div class="py-1" role="menu" aria-orientation="vertical">
+                {{#each fields.dropdownItems}}
+                  <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Briefing</a>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        {{else}}
+          <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
+            <a href="{{fields.url}}" class="tracking-wide">{{fields.title}}</a>
+          </div>
+        {{/if}}
+      {{/each}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 toggle-on-visible">
-  </div>
-</section>
-<section class="h-screen bg-gray-400 bg-cover bg-center" style="background-image: url('middle-banner.png')">
-</section>
-<section class="h-screen bg-gray-200">
-  <h1>Collaborators</h1>
-</section>
+</nav>
+{{#each fields.sections}}
+  {{> (lookup sys.contentType.sys 'id')}}
+{{/each}}
 <section class="bg-blue-900">
   <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer-bg.png')"></div>
   <div class="text-center text-white py-12">
@@ -213,7 +289,36 @@
     <p class="text-xs text-gray-400 mt-12 max-w-sm mx-auto">While most of the styles in Preflight are meant to go unnoticed — they simply make things behave more like you'd expect them to — some are more opinionated and can be surprising when you first encounter them.</p>
   </div>
 </section>
+<div>
+</script>
 <script>
+var source = document.getElementById("entry-template").innerHTML;
+var template = Handlebars.compile(source);
+var fullScreenSection = document.getElementById("full-screen-section-template").innerHTML;
+Handlebars.registerPartial('fullScreenSection', fullScreenSection);
+var textImageSection = document.getElementById("text-image-section-template").innerHTML;
+Handlebars.registerPartial('textImageSection', textImageSection);
+var imageGrid = document.getElementById("image-grid-template").innerHTML;
+Handlebars.registerPartial('imageGrid', imageGrid);
+Handlebars.registerHelper('richTextRender', function(richText) {
+  return documentToHtmlString(richText);
+})
+
+const client = contentful.createClient({
+  space: '339vydjqghz5',
+  accessToken: 'h02VwC2RtEw1lp7eSYhsdbuEAQiSpiYIlRxhgkTHS6A'
+});
+const slug = document.location.search.substr(1) || "helsinki-east-aerodrome"
+client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then( entry => {
+  var context = entry.items[0];
+  console.log(context)
+  var html = template(context);
+  document.getElementById('content').innerHTML = html;
+})
+</script>
+
+<script>
+/*
   let hamburger = document.getElementById('menu-toggle');
   let menu = document.getElementById('menu-block');
 
@@ -252,6 +357,8 @@
   // Get all the `.box` from DOM and attach the observer to these
   document.querySelectorAll('.toggle-on-visible')
 	.forEach(box => { observer.observe(box) });
+*/
 </script>
+
 </body>
 </html>
