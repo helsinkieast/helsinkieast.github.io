@@ -51,6 +51,22 @@
         transform: translate3d(-100%, 0, 0);
       }
     }
+    .atis-ticker {
+      overflow: hidden;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .front .atis-wrapper {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .front .atis-ticker {
+      width: 32rem;
+      margin: 0;
+    }
     .ticker-wrap {
       width: 100%;
       overflow: hidden;
@@ -73,7 +89,7 @@
     }
     .ticker-wrap .ticker__item {
       display: inline-block;
-      padding: 0 2rem;
+      padding: 0 0.5rem;
     }
     .toggle-on-visible {
       transition: background 0.8s ease;
@@ -90,11 +106,20 @@
     .bg-gurkha {
       background-color: #96958d;
     }
+    .text-plantation {
+      color: #25524e;
+    }
     .image-gallery.hover-effect img {
       filter: grayscale(1);
     }
     .image-gallery.hover-effect img:hover {
       filter: grayscale(0);
+    }
+    .w-128 {
+      width: 32rem;
+    }
+    .checklist tr td:last-of-type {
+      text-align: right;
     }
   </style>
 </head>
@@ -104,26 +129,43 @@
 </div>
 
 <script id="full-screen-section-template" type="text/x-handlebars-template">
-<section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-4 bg-cover bg-center bg-shark" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
+<section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-4 bg-cover bg-center bg-shark {{fields.specialClasses}}" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
   <div class="flex flex-col items-center full-screen-section-text">
     <style>
-      .full-screen-section-text h1 {
-        text-transform: uppercase;
-        font-size: 40px;
-        color: white;
-        margin-top: 100px;
+      .full-screen-section-text {
+        max-width: 920px;
+        margin: 0 auto;
       }
-      .full-screen-section-text h2 {
+      .full-screen-section-text > h1 {
+        font-family: 'Roboto Condensed', sans-serif;
+        text-transform: uppercase;
+        font-size: 60px;
+        margin-top: 100px;
+        color: #25524e;
+      }
+      .full-screen-section-text > h2 {
         text-transform: uppercase;
         font-size: 30px;
         color: white;
       }
-      .full-screen-section-text p {
-        text-transform: uppercase;
-        font-size: 12px;
+      .full-screen-section-text > p {
         color: gray;
-        width: 320px;
         text-align: center;
+      }
+      .full-screen-section-text blockquote {
+        font-size: 50px;
+        line-height: 1.2;
+        color: white;
+        text-align: center;
+      }
+      .front .full-screen-section-text > h1 {
+        color: white;
+      } 
+      .front .full-screen-section-text > p {
+        font-size: 13px;
+        color: white;
+        max-width: 500px;
+        text-transform: uppercase;
       } 
     </style>
     {{{richTextRender fields.textBlock}}}
@@ -135,9 +177,9 @@
     {{/each}}
   </div>
   {{/if}}
-  {{#if fields.showAtisBroadcast}}
-  <div class="absolute bottom-0 w-full flex justify-between p-6 text-sm text-white">
-    <div class="overflow-hidden mr-8 lg:mr-32">
+  {{#if (includes fields.specialClasses 'ATIS')}}
+  <div class="atis-wrapper p-6 text-sm text-white">
+    <div class="atis-ticker">
       <div class="ticker-wrap">
         <div class="ticker">
           <div class="ticker__item">
@@ -167,6 +209,27 @@
     <div>Redstoneaero</div>
   </div>
   {{/if}}
+  {{#if (includes fields.specialClasses 'checklist')}}
+    <table class="mx-auto checklist">
+      <tbody class="text-white">
+        <tr><td>ICAO code:</td><td>EFPR</td></tr>
+        <tr><td>Unicom frequency:</td><td>118.475 MHz</td></tr>
+        <tr><td>Weather:</td><td>Automated weather station, ATIS 135.725 MHz</td></tr>
+        <tr><td>ACC Radio Frequency:</td><td>Helsinki Control 136.650 MHz</td></tr>
+        <tr><td>Runway:</td><td>1.000 x 30 metres, to be extended to 1.800</td></tr>
+        <tr><td>Instrument approaches:</td><td>LPV</td></tr>
+        <tr><td>Airspace:</td><td>Class G up to FL 95</td></tr>
+        <tr><td>Available fuel:</td><td>Jet A1, Avgas 100LL</td></tr>
+        <tr><td>Aerodrome coordinates:</td><td>N60°28,7´, E26°35,6´</td></tr>
+        <tr><td>Closest alternate airport:</td><td>EFHK, 40 NM WSW</td></tr>
+        <tr><td>Unmanned aircraft & drone:</td><td>PPR</td></tr>
+        <tr><td>Aerodrome operator:</td><td>Redstone AERO Oy Ltd</td></tr>
+      <tbody>
+    </table>
+  {{/if}}
+  {{#if (includes fields.specialClasses 'webcam')}}
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/CvOB-Is_yYU?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  {{/if}}
 </section>
 </script>
 
@@ -189,10 +252,11 @@
         color: rgba(255,255,255,var(--text-opacity));
         text-transform: uppercase;
         font-size: 4rem;
+        color: #25524e;
       }
       .text-image-section-text-block h2 {
        line-height: 1.5;
-       font-family: 'Roboto', sans-serif;
+       font-family: 'Roboto Condensed', sans-serif;
        --bg-opacity: 1;
        text-align: center;
        box-sizing: border-box;
@@ -234,15 +298,31 @@
 </script>
 
 <script id="image-grid-template" type="text/x-handlebars-template">
-<section class="py-4 px-12 bg-shark">
+<style>
+  .image-grid h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    color: #25524e;
+  }
+  .image-grid p {
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    text-transform: uppercase;
+  }
+</style>
+<section class="py-8 px-12 bg-shark image-grid">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
-  <div class="grid grid-cols-3 grid-cols-{{fields.columns}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
+  <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
     {{#each fields.images}}
       <img class="w-full grayscale" src="{{fields.file.url}}" />
     {{/each}}
   </div>
   {{/if}}
+  {{{richTextRender fields.bottomText}}}
 </section>
 </script>
 
@@ -260,11 +340,11 @@
       {{#each fields.menu.fields.links}}
         {{#if fields.dropdownItems}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-            <a href="#responsive-header" class="tracking-wide">{{fields.title}}</a>
+            <a href="{{fields.url}}" class="tracking-wide">{{fields.title}}</a>
             <div class="origin-top-right absolute right-0 hidden">
               <div class="py-1" role="menu" aria-orientation="vertical">
                 {{#each fields.dropdownItems}}
-                  <a href="#" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Briefing</a>
+                  <a href="{{fields.url}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{{fields.title}}</a>
                 {{/each}}
               </div>
             </div>
@@ -302,6 +382,9 @@ var imageGrid = document.getElementById("image-grid-template").innerHTML;
 Handlebars.registerPartial('imageGrid', imageGrid);
 Handlebars.registerHelper('richTextRender', function(richText) {
   return documentToHtmlString(richText);
+})
+Handlebars.registerHelper('includes', function(sentence, word) {
+  return sentence && sentence.includes(word);
 })
 
 const client = contentful.createClient({
