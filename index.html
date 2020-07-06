@@ -329,7 +329,7 @@
 <script id="entry-template" type="text/x-handlebars-template">
 <div class="entry {{sys.contentType.sys.id}}">
 <nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10">
-  <img class="w-48" src="{{fields.menu.fields.logo.fields.file.url}}">
+  <a href="/"><img class="w-48" src="{{fields.menu.fields.logo.fields.file.url}}"></a>
   <div class="block md:hidden">
     <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
       <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
@@ -340,18 +340,18 @@
       {{#each fields.menu.fields.links}}
         {{#if fields.dropdownItems}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-            <a href="{{fields.url}}" class="tracking-wide">{{fields.title}}</a>
+            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide">{{fields.title}}</a>
             <div class="origin-top-right absolute right-0 hidden">
               <div class="py-1" role="menu" aria-orientation="vertical">
                 {{#each fields.dropdownItems}}
-                  <a href="{{fields.url}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{{fields.title}}</a>
+                  <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{{fields.title}}</a>
                 {{/each}}
               </div>
             </div>
           </div>
         {{else}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
-            <a href="{{fields.url}}" class="tracking-wide">{{fields.title}}</a>
+            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide">{{fields.title}}</a>
           </div>
         {{/if}}
       {{/each}}
