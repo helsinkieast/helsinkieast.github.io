@@ -23,7 +23,10 @@
     html {
       font-family: 'Roboto', sans-serif;
     }
-    .bg-blue-900 {
+    .bg-base {
+      background-color: #252a2c;
+    }
+    .page.helsinki-east-aerodrome .bg-base {
       background-color: #0c242e;
     }
     .active {
@@ -121,6 +124,16 @@
     .checklist tr td:last-of-type {
       text-align: right;
     }
+    .topnav {
+      transition: background 0.2s;
+      background: #96958e;
+    }
+    .page.helsinki-east-aerodrome .topnav {
+      background: transparent;
+    }
+    .page.helsinki-east-aerodrome .topnav.bg-active {
+      background: #96958e;
+    }
   </style>
 </head>
 
@@ -206,7 +219,7 @@
         </div>
       </div>
     </div>
-    <div>Redstoneaero</div>
+    <div>Developed by<img class="w-32" src="redstoneaero_logo_yellowwhite.png" alt="Redstone Aero" /></div>
   </div>
   {{/if}}
   {{#if (includes fields.specialClasses 'checklist')}}
@@ -235,7 +248,7 @@
 
 <script id="text-image-section-template" type="text/x-handlebars-template">
 <section class="md:flex text-image-section">
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-blue-900 flex items-center justify-center">
+  <div class="md:w-1/2 h-screen-half lg:h-screen bg-base flex items-center justify-center">
     <style>
       .text-image-section-text-block h1 {
         line-height: 1.5;
@@ -327,8 +340,8 @@
 </script>
 
 <script id="entry-template" type="text/x-handlebars-template">
-<div class="entry {{sys.contentType.sys.id}}">
-<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10">
+<div class="entry {{sys.contentType.sys.id}} {{fields.slug}}">
+<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 topnav" id="topnav">
   <a href="/"><img class="w-48" src="{{fields.menu.fields.logo.fields.file.url}}"></a>
   <div class="block md:hidden">
     <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
@@ -361,7 +374,7 @@
 {{#each fields.sections}}
   {{> (lookup sys.contentType.sys 'id')}}
 {{/each}}
-<section class="bg-blue-900">
+<section class="bg-base">
   <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer-bg.png')"></div>
   <div class="text-center text-white py-12">
     <h1 class="text-4xl">Helsinki East Aerodrome</h1>
@@ -397,11 +410,12 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   console.log(context)
   var html = template(context);
   document.getElementById('content').innerHTML = html;
+  init();
 })
 </script>
 
 <script>
-/*
+  function init() {
   let hamburger = document.getElementById('menu-toggle');
   let menu = document.getElementById('menu-block');
 
@@ -440,7 +454,23 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   // Get all the `.box` from DOM and attach the observer to these
   document.querySelectorAll('.toggle-on-visible')
 	.forEach(box => { observer.observe(box) });
-*/
+  }
+
+  let topNavChanged = false;
+  window.addEventListener('scroll', function() {
+    const scrollpos = window.scrollY;
+    if(scrollpos >= window.innerHeight) {
+      if(!topNavChanged) {
+        document.getElementById("topnav").classList.add('bg-active');
+        topNavChanged = true;
+      }
+    } else {
+      if(topNavChanged) {
+        document.getElementById("topnav").classList.remove('bg-active');
+        topNavChanged = false;
+      }
+    }
+  })
 </script>
 
 </body>
