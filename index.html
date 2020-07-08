@@ -134,6 +134,15 @@
     .page.helsinki-east-aerodrome .topnav.bg-active {
       background: #96958e;
     }
+    .topnav a[title="C"] {
+      font-size: 0;
+      background: url('c-icon.png') no-repeat center;
+      background-size: contain;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: text-bottom;
+    }
   </style>
 </head>
 
@@ -251,18 +260,13 @@
   <div class="md:w-1/2 h-screen-half lg:h-screen bg-base flex items-center justify-center">
     <style>
       .text-image-section-text-block h1 {
-        line-height: 1.5;
+        line-height: 1;
         font-family: 'Roboto', sans-serif;
-        --bg-opacity: 1;
         text-align: center;
         box-sizing: border-box;
-        border-width: 0;
-        border-style: solid;
-        border-color: #e2e8f0;
         margin: 0;
         font-weight: inherit;
-        --text-opacity: 1;
-        color: rgba(255,255,255,var(--text-opacity));
+        color: white;
         text-transform: uppercase;
         font-size: 4rem;
         color: #25524e;
@@ -270,32 +274,22 @@
       .text-image-section-text-block h2 {
        line-height: 1.5;
        font-family: 'Roboto Condensed', sans-serif;
-       --bg-opacity: 1;
        text-align: center;
        box-sizing: border-box;
-       border-width: 0;
-       border-style: solid;
-       border-color: #e2e8f0;
        margin: 0;
        font-weight: inherit;
-       --text-opacity: 1;
-       color: rgba(255,255,255,var(--text-opacity));
+       color: white;
        text-transform: uppercase;
        font-size: 1.5rem; 
       }
       .text-image-section-text-block p {
         line-height: 1.5;
         font-family: 'Roboto', sans-serif;
-        --bg-opacity: 1;
         text-align: center;
         box-sizing: border-box;
-        border-width: 0;
-        border-style: solid;
-        border-color: #e2e8f0;
         margin: 0;
         font-size: .875rem;
-        --text-opacity: 1;
-        color: rgba(160,174,192,var(--text-opacity));
+        color: rgb(160,174,192);
       }
       .text-image-section:nth-of-type(2n+1) > div:first-of-type {
         order: 2;
@@ -353,18 +347,18 @@
       {{#each fields.menu.fields.links}}
         {{#if fields.dropdownItems}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
-            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide">{{fields.title}}</a>
+            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide" title="{{fields.title}}">{{fields.title}}</a>
             <div class="origin-top-right absolute right-0 hidden">
               <div class="py-1" role="menu" aria-orientation="vertical">
                 {{#each fields.dropdownItems}}
-                  <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{{fields.title}}</a>
+                  <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" title="{{fields.title}}">{{fields.title}}</a>
                 {{/each}}
               </div>
             </div>
           </div>
         {{else}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6">
-            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide">{{fields.title}}</a>
+            <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide" title="{{fields.title}}">{{fields.title}}</a>
           </div>
         {{/if}}
       {{/each}}
