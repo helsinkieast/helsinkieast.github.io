@@ -98,7 +98,7 @@
       transition: background 0.8s ease;
     }
     .toggle-on-visible.visible {
-      background: white;
+      background-color: white;
     }
     .dropdown:hover .hidden {
       display: block;
@@ -257,7 +257,7 @@
 
 <script id="text-image-section-template" type="text/x-handlebars-template">
 <section class="md:flex text-image-section">
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-base flex items-center justify-center">
+  <div class="md:w-1/2 h-screen-half bg-base flex items-center justify-center">
     <style>
       .text-image-section-text-block h1 {
         line-height: 1;
@@ -299,7 +299,7 @@
       {{{richTextRender fields.textBlock}}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half lg:h-screen bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
+  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
   </div>
 </section>
 </script>
