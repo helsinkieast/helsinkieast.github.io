@@ -134,6 +134,9 @@
     .page.helsinki-east-aerodrome .topnav.bg-active {
       background: #96958e;
     }
+    .page.helsinki-east-aerodrome .topnav.menu-active {
+      background: #96958e;
+    }
     .topnav a[title="C"] {
       font-size: 0;
       background: url('c-icon.png') no-repeat center;
@@ -164,6 +167,12 @@
         font-size: 60px;
         margin-top: 100px;
         color: #25524e;
+        text-align: center;
+      }
+      @media (max-width: 600px) {
+        .full-screen-section-text > h1 {
+          font-size: 40px;
+        }
       }
       .full-screen-section-text > h2 {
         text-transform: uppercase;
@@ -268,7 +277,7 @@
         font-weight: inherit;
         color: white;
         text-transform: uppercase;
-        font-size: 4rem;
+        font-size: 3rem;
         color: #25524e;
       }
       .text-image-section-text-block h2 {
@@ -369,7 +378,7 @@
   {{> (lookup sys.contentType.sys 'id')}}
 {{/each}}
 <section class="bg-base">
-  <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer-bg.png')"></div>
+  <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer.jpg')"></div>
   <div class="text-center text-white py-12">
     <h1 class="text-4xl">Helsinki East Aerodrome</h1>
     <p class="uppercase mt-8">Another nice slogan goes right here</p>
@@ -415,6 +424,7 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
 
   hamburger.addEventListener('click', function(){
       menu.classList.toggle('active');
+      document.getElementById("topnav").classList.toggle('menu-active');
   });
 
 
