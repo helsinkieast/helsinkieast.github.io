@@ -257,6 +257,7 @@
         line-height: 1.2;
         color: white;
         text-align: center;
+        min-height: 180px;
       }
       .full-screen-section-text blockquote.block {
         display: block;
@@ -562,7 +563,6 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
 
   let visibleQuoteIndex = 0;
   let quotes = document.querySelectorAll('.quotes blockquote');
-  quotes[visibleQuoteIndex].classList.add('block');
   showPrevQuote = () => {
     quotes[visibleQuoteIndex].classList.remove('block');
     visibleQuoteIndex = visibleQuoteIndex === 0 ? quotes.length - 1 : visibleQuoteIndex - 1;
@@ -572,6 +572,10 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
     quotes[visibleQuoteIndex].classList.remove('block');
     visibleQuoteIndex = visibleQuoteIndex === quotes.length - 1 ? 0 : visibleQuoteIndex + 1;
     quotes[visibleQuoteIndex].classList.add('block');
+  }
+  if(quotes.length > 0) {
+    quotes[visibleQuoteIndex].classList.add('block');
+    window.setInterval(function(){ showNextQuote() }, 7000);
   }
 
   const options = {
