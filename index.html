@@ -132,6 +132,9 @@
     .w-128 {
       width: 32rem;
     }
+    .h-112 {
+      height: 28rem;
+    }
     .checklist tr td:last-of-type {
       text-align: right;
     }
@@ -159,9 +162,6 @@
     .page.helsinki-east-aerodrome .topnav.bg-active .logo-white,
     .page.helsinki-east-aerodrome .topnav.menu-active .logo-white {
       display: block;
-    }
-    .page.helsinki-east-aerodrome .text-image-section .h-screen-half {
-      height: 70vh;
     }
     .topnav a[title="C"] {
       font-size: 0;
@@ -297,7 +297,7 @@
 
 <script id="text-image-section-template" type="text/x-handlebars-template">
 <section class="md:flex text-image-section">
-  <div class="md:w-1/2 h-screen-half bg-base flex items-center justify-center toggle-on-visible">
+  <div class="md:w-1/2 h-112 bg-base flex items-center justify-center toggle-on-visible">
     <style>
       .text-image-section-text-block h1 {
         line-height: 1;
@@ -339,7 +339,7 @@
       {{{richTextRender fields.textBlock}}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
+  <div class="md:w-1/2 h-112 bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
   </div>
 </section>
 </script>
