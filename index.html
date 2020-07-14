@@ -17,6 +17,12 @@
     .h-screen-half {
       height: 50vh;
     }
+    .toggle-on-visible {
+      visibility: hidden; 
+    }
+    .toggle-on-visible > * {
+      opacity: 0;
+    }
   </style>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <style>
@@ -26,7 +32,8 @@
     .bg-base {
       background-color: #252a2c;
     }
-    .page.helsinki-east-aerodrome .bg-base {
+    .page.helsinki-east-aerodrome .bg-base,
+    .page.helsinki-east-aerodrome.bg-base {
       background-color: #0c242e;
     }
     .active {
@@ -93,12 +100,17 @@
     .ticker-wrap .ticker__item {
       display: inline-block;
       padding: 0 0.5rem;
+      font-family: 'Roboto Condensed', sans-serif;
     }
-    .toggle-on-visible {
-      transition: background 0.8s ease;
+    .toggle-on-visible > *:first-child {
+      transition: opacity 0.3s ease;
     }
-    .toggle-on-visible.visible {
-      background-color: white;
+    .toggle-on-visible > *:last-child {
+      transition: opacity 0.3s ease;
+      transition-delay: 0.3s;
+    }
+    .toggle-on-visible.visible > * {
+      opacity: 1;
     }
     .dropdown:hover .hidden {
       display: block;
@@ -130,12 +142,27 @@
     }
     .page.helsinki-east-aerodrome .topnav {
       background: transparent;
+      position: absolute;
     }
-    .page.helsinki-east-aerodrome .topnav.bg-active {
-      background: #96958e;
+    .page.helsinki-east-aerodrome .topnav .logo-white {
+      display: none;
     }
+    .page.helsinki-east-aerodrome .topnav.bg-active, 
     .page.helsinki-east-aerodrome .topnav.menu-active {
+      position: fixed;
       background: #96958e;
+      padding: 1rem;
+    }
+    .page.helsinki-east-aerodrome .topnav.bg-active .logo-dark, 
+    .page.helsinki-east-aerodrome .topnav.menu-active .logo-dark {
+      display: none;
+    }
+    .page.helsinki-east-aerodrome .topnav.bg-active .logo-white,
+    .page.helsinki-east-aerodrome .topnav.menu-active .logo-white {
+      display: block;
+    }
+    .page.helsinki-east-aerodrome .text-image-section .h-screen-half {
+      height: 70vh;
     }
     .topnav a[title="C"] {
       font-size: 0;
@@ -145,6 +172,9 @@
       height: 16px;
       display: inline-block;
       vertical-align: text-bottom;
+    }
+    .cond {
+      font-family: 'Roboto Condensed', sans-serif;
     }
   </style>
 </head>
@@ -164,7 +194,7 @@
       .full-screen-section-text > h1 {
         font-family: 'Roboto Condensed', sans-serif;
         text-transform: uppercase;
-        font-size: 60px;
+        font-size: 56px;
         margin-top: 100px;
         color: #25524e;
         text-align: center;
@@ -191,11 +221,13 @@
       }
       .front .full-screen-section-text > h1 {
         color: white;
+        line-height: 1.2;
       } 
       .front .full-screen-section-text > p {
-        font-size: 13px;
-        color: white;
-        max-width: 500px;
+        font-size: 14px;
+        font-family: 'Roboto Condensed', sans-serif;
+        color: rgb(52, 52, 52);
+        max-width: 600px;
         text-transform: uppercase;
       } 
     </style>
@@ -237,7 +269,7 @@
         </div>
       </div>
     </div>
-    <div>Developed by<img class="w-32" src="redstoneaero_logo_yellowwhite.png" alt="Redstone Aero" /></div>
+    <div class="uppercase cond">Developed by<img class="w-32" src="redstoneaero_logo_yellowwhite.png" alt="Redstone Aero" /></div>
   </div>
   {{/if}}
   {{#if (includes fields.specialClasses 'checklist')}}
@@ -265,7 +297,7 @@
 </script>
 
 <script id="text-image-section-template" type="text/x-handlebars-template">
-<section class="md:flex text-image-section">
+<section class="md:flex text-image-section toggle-on-visible">
   <div class="md:w-1/2 h-screen-half bg-base flex items-center justify-center">
     <style>
       .text-image-section-text-block h1 {
@@ -308,7 +340,7 @@
       {{{richTextRender fields.textBlock}}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
+  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center" style="background-image: url('{{fields.image.fields.file.url}}'">
   </div>
 </section>
 </script>
@@ -357,9 +389,9 @@
 </script>
 
 <script id="entry-template" type="text/x-handlebars-template">
-<div class="entry {{sys.contentType.sys.id}} {{fields.slug}}">
-<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 topnav" id="topnav">
-  <a href="/"><img class="w-48" src="{{fields.menu.fields.logo.fields.file.url}}"></a>
+<div class="entry {{sys.contentType.sys.id}} {{fields.slug}} bg-base">
+<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 cond topnav" id="topnav">
+  <a href="/"><img class="logo-dark w-48" src="{{fields.menu.fields.logo.fields.file.url}}"><img class="logo-white w-24" src="{{fields.menu.fields.logoWhite.fields.file.url}}"></a>
   <div class="block md:hidden">
     <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
       <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
@@ -447,7 +479,7 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   const options = {
     root: null, // use the document's viewport as the container
     rootMargin: '0px', // % or px - offsets added to each side of the intersection 
-    threshold: 0.5 // percentage of the target element which is visible
+    threshold: 0.8 // percentage of the target element which is visible
   }
   
   let callback = (entries) => { 
@@ -459,7 +491,7 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
       if(entry.isIntersecting) {
         entry.target.classList.add('visible');
       } else {
-        entry.target.classList.remove('visible');    
+        //entry.target.classList.remove('visible');    
       }
   
     });
