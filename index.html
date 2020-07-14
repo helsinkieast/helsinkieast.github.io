@@ -124,7 +124,7 @@
       color: #25524e;
     }
     .image-gallery.hover-effect > div {
-      background: rgb(133,133,127);
+      background: #96958e;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -208,6 +208,12 @@
     .cond {
       font-family: 'Roboto Condensed', sans-serif;
     }
+    .footer-image {
+      display: none;
+    }
+    .page.helsinki-east-aerodrome .footer-image {
+      display: block;
+    }
   </style>
 </head>
 
@@ -253,11 +259,11 @@
       }
       .full-screen-section-text blockquote {
         display: none;
-        font-size: 50px;
+        font-size: 65px;
         line-height: 1.2;
         color: white;
         text-align: center;
-        min-height: 180px;
+        min-height: 320px;
       }
       .full-screen-section-text blockquote.block {
         display: block;
@@ -441,7 +447,7 @@
     font-family: 'Roboto Condensed', sans-serif;
     text-align: center;
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     text-transform: uppercase;
   }
   .image-grid .image-gallery h3 {
@@ -453,7 +459,7 @@
     text-align: center;
   }
 </style>
-<section class="py-8 px-12 bg-base image-grid {{fields.specialClasses}}">
+<section class="py-16 px-12 bg-base image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
   <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
@@ -508,7 +514,7 @@
   {{> (lookup sys.contentType.sys 'id')}}
 {{/each}}
 <section class="bg-base">
-  <div class="h-112 bg-blue-700 bg-cover bg-center" style="background-image: url('footer.jpg')"></div>
+  <div class="h-112 bg-blue-700 bg-cover bg-center footer-image" style="background-image: url('footer.jpg')"></div>
   <div class="text-center text-white py-12">
     <img class="w-128 m-auto" src="HEA_logo_vaaka.png" alt="Helsinki East Aerodrome" />
     <p class="uppercase mt-8">Another nice slogan goes right here</p>
