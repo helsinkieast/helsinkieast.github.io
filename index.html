@@ -315,26 +315,40 @@
 
 <script id="image-grid-template" type="text/x-handlebars-template">
 <style>
-  .image-grid h2 {
+  .image-grid > h2 {
     text-align: center;
     text-transform: uppercase;
     font-size: 40px;
     color: #25524e;
   }
-  .image-grid p {
+  .image-grid > p {
     font-family: 'Roboto Condensed', sans-serif;
     text-align: center;
     color: white;
     font-size: 25px;
     text-transform: uppercase;
   }
+  .image-grid .image-gallery h3 {
+    color: white;
+    text-align: center;
+  }
+  .image-grid .image-gallery p {
+    color: white;
+    text-align: center;
+  }
 </style>
-<section class="py-8 px-12 bg-shark image-grid">
+<section class="py-8 px-12 bg-shark image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
   <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
     {{#each fields.images}}
-      <img class="w-full grayscale" src="{{fields.file.url}}" />
+      <div>
+        <img class="w-full grayscale" src="{{fields.file.url}}" />
+        {{#if (includes ../fields.specialClasses 'show-descriptions')}}
+          <h3>{{fields.title}}</h3>
+          <p>{{fields.description}}</p>
+        {{/if}}
+      </div>
     {{/each}}
   </div>
   {{/if}}
