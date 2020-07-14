@@ -144,7 +144,15 @@
     }
     .topnav a:hover {
       color: rgb(52,52,52);
-    } 
+    }
+    .topnav .dropdown a.block.leading-5 {
+      background: rgb(234,230,222);
+      border-color: rgb(150 149 142);
+      color: rgb(38 43 45);
+    }
+    .topnav .dropdown a.block.leading-5:hover {
+      background: white;
+    }
     .page.helsinki-east-aerodrome .topnav {
       background: transparent;
       position: absolute;
@@ -174,6 +182,9 @@
       height: 16px;
       display: inline-block;
       vertical-align: text-bottom;
+    }
+    .topnav a[title="C"]:hover {
+      filter: grayscale(1);
     }
     .cond {
       font-family: 'Roboto Condensed', sans-serif;
@@ -311,19 +322,21 @@
         font-weight: inherit;
         color: white;
         text-transform: uppercase;
-        font-size: 3rem;
+        font-size: 65px;
         color: #25524e;
+        margin-bottom: 10px;
       }
       .text-image-section-text-block h2 {
        line-height: 1.5;
        font-family: 'Roboto Condensed', sans-serif;
        text-align: center;
        box-sizing: border-box;
-       margin: 0;
+       margin: 0 auto;
+       max-width: 395px;
        font-weight: inherit;
        color: white;
        text-transform: uppercase;
-       font-size: 1.5rem; 
+       font-size: 20px; 
       }
       .text-image-section-text-block p {
         line-height: 1.5;
@@ -333,6 +346,20 @@
         margin: 0;
         font-size: .875rem;
         color: rgb(160,174,192);
+      }
+      .text-image-section-text-block a {
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid rgb(150,149,142);
+        color: rgb(150,149,142);
+        margin-top: 30px;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .text-image-section-text-block a:hover {
+        border: 1px solid white;
+        color: white;
       }
       .text-image-section:nth-of-type(2n+1) > div:first-of-type {
         order: 2;
@@ -405,7 +432,7 @@
         {{#if fields.dropdownItems}}
           <div class="relative block mt-5 md:inline-block md:mt-0 text-white mr-6 dropdown">
             <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="tracking-wide" title="{{fields.title}}">{{fields.title}}</a>
-            <div class="origin-top-right absolute right-0 hidden w-48">
+            <div class="origin-top-right absolute left-0 hidden w-48">
               <div class="py-1" role="menu" aria-orientation="vertical">
                 {{#each fields.dropdownItems}}
                   <a href="{{#if fields.page}}?{{fields.page.fields.slug}}{{else}}{{fields.url}}{{/if}}" class="block px-4 py-2 text-xs leading-5 text-gray-700 border-solid border-4 border-gray-200 bg-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" title="{{fields.title}}">{{fields.title}}</a>
