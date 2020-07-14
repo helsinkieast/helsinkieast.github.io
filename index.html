@@ -19,8 +19,6 @@
     }
     .toggle-on-visible {
       visibility: hidden; 
-    }
-    .toggle-on-visible > * {
       opacity: 0;
     }
   </style>
@@ -102,14 +100,15 @@
       padding: 0 0.5rem;
       font-family: 'Roboto Condensed', sans-serif;
     }
-    .toggle-on-visible > *:first-child {
+    .toggle-on-visible {
       transition: opacity 0.3s ease;
     }
-    .toggle-on-visible > *:last-child {
-      transition: opacity 0.3s ease;
-      transition-delay: 0.3s;
+    @media (min-width: 768px) {
+      .toggle-on-visible:last-child {
+        transition-delay: 0.3s;
+      }
     }
-    .toggle-on-visible.visible > * {
+    .toggle-on-visible.visible {
       opacity: 1;
     }
     .dropdown:hover .hidden {
@@ -297,8 +296,8 @@
 </script>
 
 <script id="text-image-section-template" type="text/x-handlebars-template">
-<section class="md:flex text-image-section toggle-on-visible">
-  <div class="md:w-1/2 h-screen-half bg-base flex items-center justify-center">
+<section class="md:flex text-image-section">
+  <div class="md:w-1/2 h-screen-half bg-base flex items-center justify-center toggle-on-visible">
     <style>
       .text-image-section-text-block h1 {
         line-height: 1;
@@ -340,7 +339,7 @@
       {{{richTextRender fields.textBlock}}}
     </div>
   </div>
-  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center" style="background-image: url('{{fields.image.fields.file.url}}'">
+  <div class="md:w-1/2 h-screen-half bg-gray-500 bg-cover bg-center toggle-on-visible" style="background-image: url('{{fields.image.fields.file.url}}'">
   </div>
 </section>
 </script>
