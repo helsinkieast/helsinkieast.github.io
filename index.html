@@ -123,10 +123,21 @@
     .text-plantation {
       color: #25524e;
     }
+    .image-gallery.hover-effect > div {
+      background: rgb(133,133,127);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+    }
     .image-gallery.hover-effect img {
       filter: grayscale(1);
+      max-width: 60%;
+      max-height: 60%;
+      width: auto;
+      height: auto;
     }
-    .image-gallery.hover-effect img:hover {
+    .image-gallery.hover-effect div:hover img {
       filter: grayscale(0);
     }
     .w-128 {
@@ -249,7 +260,7 @@
   {{#if fields.imageGallery}}
   <div class="grid grid-cols-3 gap-2 image-gallery">
     {{#each fields.imageGallery}}
-      <img class="w-full grayscale" src="{{fields.file.url}}" />
+      <img class="grayscale" src="{{fields.file.url}}" />
     {{/each}}
   </div>
   {{/if}}
@@ -379,7 +390,7 @@
   .image-grid > h2 {
     text-align: center;
     text-transform: uppercase;
-    font-size: 40px;
+    font-size: 65px;
     color: #25524e;
   }
   .image-grid > p {
@@ -398,7 +409,7 @@
     text-align: center;
   }
 </style>
-<section class="py-8 px-12 bg-shark image-grid {{fields.specialClasses}}">
+<section class="py-8 px-12 bg-base image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
   <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
@@ -453,7 +464,7 @@
   {{> (lookup sys.contentType.sys 'id')}}
 {{/each}}
 <section class="bg-base">
-  <div class="h-screen-half bg-blue-700 bg-cover bg-center" style="background-image: url('footer.jpg')"></div>
+  <div class="h-112 bg-blue-700 bg-cover bg-center" style="background-image: url('footer.jpg')"></div>
   <div class="text-center text-white py-12">
     <h1 class="text-4xl">Helsinki East Aerodrome</h1>
     <p class="uppercase mt-8">Another nice slogan goes right here</p>
