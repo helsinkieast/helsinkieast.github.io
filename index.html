@@ -164,9 +164,15 @@
     .topnav .dropdown a.block.leading-5:hover {
       background: white;
     }
+    .topnav .logo-dark {
+      display: none;
+    }
     .page.helsinki-east-aerodrome .topnav {
       background: transparent;
       position: absolute;
+    }
+    .page.helsinki-east-aerodrome .topnav .logo-dark {
+      display: block;
     }
     .page.helsinki-east-aerodrome .topnav .logo-white {
       display: none;
@@ -175,7 +181,6 @@
     .page.helsinki-east-aerodrome .topnav.menu-active {
       position: fixed;
       background: #96958e;
-      padding: 1rem;
     }
     .page.helsinki-east-aerodrome .topnav.bg-active .logo-dark, 
     .page.helsinki-east-aerodrome .topnav.menu-active .logo-dark {
@@ -221,7 +226,9 @@
       .full-screen-section-text > h1 {
         font-family: 'Roboto Condensed', sans-serif;
         text-transform: uppercase;
-        font-size: 56px;
+        font-size: 65px;
+        line-height: 1;
+        margin-bottom: 10px;
         margin-top: 100px;
         color: #25524e;
         text-align: center;
@@ -233,23 +240,50 @@
       }
       .full-screen-section-text > h2 {
         text-transform: uppercase;
-        font-size: 30px;
+        font-size: 20px;
         color: white;
+        margin-bottom: 10px;
       }
       .full-screen-section-text > p {
-        color: gray;
+        color: rgb(133, 133, 126);
         text-align: center;
+        font-size: 14px;
+        max-width: 680px;
+        margin-bottom: 10px;
       }
       .full-screen-section-text blockquote {
+        display: none;
         font-size: 50px;
         line-height: 1.2;
         color: white;
         text-align: center;
       }
+      .full-screen-section-text blockquote.block {
+        display: block;
+      }
+      .full-screen-section-text blockquote:before {
+        left: -40px;
+      }
+      .full-screen-section-text .arrows .arrow {
+        position: absolute;
+        top: 50px;
+        color: white;
+        font-size: 70px;
+      }
+      .full-screen-section-text .arrows .arrow.next {
+        right: 60px;
+      }
+      .full-screen-section-text .arrows .arrow.prev {
+        left: 60px;
+      }
       .front .full-screen-section-text > h1 {
         color: white;
         line-height: 1.2;
+        font-size: 56px;
       } 
+      .front .full-screen-section-text > h2 {
+        font-size: 30px;
+      }
       .front .full-screen-section-text > p {
         font-size: 14px;
         font-family: 'Roboto Condensed', sans-serif;
@@ -259,6 +293,12 @@
       } 
     </style>
     {{{richTextRender fields.textBlock}}}
+    {{#if (includes fields.specialClasses 'quotes')}}
+      <div class="arrows">
+        <button class="arrow prev" onclick="showPrevQuote()"><</button>
+        <button class="arrow next" onclick="showNextQuote()">></button>
+      </div>
+    {{/if}}
   </div>
   {{#if fields.imageGallery}}
   <div class="grid grid-cols-3 gap-2 image-gallery">
@@ -433,7 +473,7 @@
 
 <script id="entry-template" type="text/x-handlebars-template">
 <div class="entry {{sys.contentType.sys.id}} {{fields.slug}} bg-base">
-<nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 cond topnav" id="topnav">
+<nav class="flex items-center justify-between flex-wrap p-4 fixed w-full z-10 cond topnav" id="topnav">
   <a href="/"><img class="logo-dark w-48" src="{{fields.menu.fields.logo.fields.file.url}}"><img class="logo-white w-24" src="{{fields.menu.fields.logoWhite.fields.file.url}}"></a>
   <div class="block md:hidden">
     <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
@@ -507,6 +547,9 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
 </script>
 
 <script>
+  let showNextQuote = () => {}
+  let showPrevQuote = () => {}
+
   function init() {
   let hamburger = document.getElementById('menu-toggle');
   let menu = document.getElementById('menu-block');
@@ -517,7 +560,19 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   });
 
 
-
+  let visibleQuoteIndex = 0;
+  let quotes = document.querySelectorAll('.quotes blockquote');
+  quotes[visibleQuoteIndex].classList.add('block');
+  showPrevQuote = () => {
+    quotes[visibleQuoteIndex].classList.remove('block');
+    visibleQuoteIndex = visibleQuoteIndex === 0 ? quotes.length - 1 : visibleQuoteIndex - 1;
+    quotes[visibleQuoteIndex].classList.add('block');
+  }
+  showNextQuote = () => {
+    quotes[visibleQuoteIndex].classList.remove('block');
+    visibleQuoteIndex = visibleQuoteIndex === quotes.length - 1 ? 0 : visibleQuoteIndex + 1;
+    quotes[visibleQuoteIndex].classList.add('block');
+  }
 
   const options = {
     root: null, // use the document's viewport as the container
