@@ -582,7 +582,7 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   }
   if(quotes.length > 0) {
     quotes[visibleQuoteIndex].classList.add('block');
-    window.setInterval(function(){ showNextQuote() }, 7000);
+    window.setInterval(function(){ showNextQuote() }, 5000);
   }
 
   const options = {
