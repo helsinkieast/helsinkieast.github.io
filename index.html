@@ -671,92 +671,95 @@ client.getEntries({content_type: 'page', 'fields.slug': slug, include: 10}).then
   let showPrevQuote = () => {}
 
   function init() {
-  let hamburger = document.getElementById('menu-toggle');
-  let menu = document.getElementById('menu-block');
+    let hamburger = document.getElementById('menu-toggle');
+    let menu = document.getElementById('menu-block');
 
-  hamburger.addEventListener('click', function(){
-      menu.classList.toggle('active');
-      document.getElementById("topnav").classList.toggle('menu-active');
-  });
-
-
-  let visibleQuoteIndex = 0;
-  let quotes = document.querySelectorAll('.quotes blockquote');
-  showPrevQuote = () => {
-    quotes[visibleQuoteIndex].classList.remove('block');
-    visibleQuoteIndex = visibleQuoteIndex === 0 ? quotes.length - 1 : visibleQuoteIndex - 1;
-    quotes[visibleQuoteIndex].classList.add('block');
-  }
-  showNextQuote = () => {
-    quotes[visibleQuoteIndex].classList.remove('block');
-    visibleQuoteIndex = visibleQuoteIndex === quotes.length - 1 ? 0 : visibleQuoteIndex + 1;
-    quotes[visibleQuoteIndex].classList.add('block');
-  }
-  if(quotes.length > 0) {
-    quotes[visibleQuoteIndex].classList.add('block');
-    window.setInterval(function(){ showNextQuote() }, 5000);
-  }
-
-  const options = {
-    root: null, // use the document's viewport as the container
-    rootMargin: '0px', // % or px - offsets added to each side of the intersection 
-    threshold: 0.5 // percentage of the target element which is visible
-  }
-  
-  let callback = (entries) => { 
-    entries.forEach(entry => {
-      
-      // If entry (box) is visible - according with the params set in `options`
-      // then adds `isVisible` class to box
-      // otherwise removes `isVisible` class
-      if(entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        //entry.target.classList.remove('visible');    
-      }
-  
+    hamburger.addEventListener('click', function(){
+        menu.classList.toggle('active');
+        document.getElementById("topnav").classList.toggle('menu-active');
     });
-  }
-  
-  // Create the intersection observer instance by calling its constructor and passing it a
-  // callback function to be run whenever a threshold is crossed in one direction or the other:
-  let observer = new IntersectionObserver(callback, options);
-  
-  // Get all the `.box` from DOM and attach the observer to these
-  document.querySelectorAll('.toggle-on-visible')
-	.forEach(box => { observer.observe(box) });
+
+
+    let visibleQuoteIndex = 0;
+    let quotes = document.querySelectorAll('.quotes blockquote');
+    showPrevQuote = () => {
+      quotes[visibleQuoteIndex].classList.remove('block');
+      visibleQuoteIndex = visibleQuoteIndex === 0 ? quotes.length - 1 : visibleQuoteIndex - 1;
+      quotes[visibleQuoteIndex].classList.add('block');
+    }
+    showNextQuote = () => {
+      quotes[visibleQuoteIndex].classList.remove('block');
+      visibleQuoteIndex = visibleQuoteIndex === quotes.length - 1 ? 0 : visibleQuoteIndex + 1;
+      quotes[visibleQuoteIndex].classList.add('block');
+    }
+    if(quotes.length > 0) {
+      quotes[visibleQuoteIndex].classList.add('block');
+      window.setInterval(function(){ showNextQuote() }, 5000);
+    }
+
+    const options = {
+      root: null, // use the document's viewport as the container
+      rootMargin: '0px', // % or px - offsets added to each side of the intersection 
+      threshold: 0.5 // percentage of the target element which is visible
+    }
+    
+    let callback = (entries) => { 
+      entries.forEach(entry => {
+        
+        // If entry (box) is visible - according with the params set in `options`
+        // then adds `isVisible` class to box
+        // otherwise removes `isVisible` class
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          //entry.target.classList.remove('visible');    
+        }
+    
+      });
+    }
+    
+    // Create the intersection observer instance by calling its constructor and passing it a
+    // callback function to be run whenever a threshold is crossed in one direction or the other:
+    let observer = new IntersectionObserver(callback, options);
+    
+    // Get all the `.box` from DOM and attach the observer to these
+    document.querySelectorAll('.toggle-on-visible')
+          .forEach(box => { observer.observe(box) });
+
+    let topNavChanged = false;
+    window.addEventListener('scroll', function() {
+      const scrollpos = window.scrollY;
+      if(scrollpos >= window.innerHeight) {
+        if(!topNavChanged) {
+          document.getElementById("topnav").classList.add('bg-active');
+          topNavChanged = true;
+        }
+      } else {
+        if(topNavChanged) {
+          document.getElementById("topnav").classList.remove('bg-active');
+          topNavChanged = false;
+        }
+      }
+    })
+
+    if(document.getElementById("instagram-feed")) {
+      new InstagramFeed({
+          'username': 'redstone_aero',
+          'container': document.getElementById("instagram-feed"),
+          'display_profile': true,
+          'display_biography': true,
+          'display_gallery': true,
+          'callback': null,
+          'styling': true,
+          'items': 8,
+          'items_per_row': 4,
+          'margin': 1,
+          'lazy_load': true,
+          'on_error': console.error
+      })
+    }
   }
 
-  let topNavChanged = false;
-  window.addEventListener('scroll', function() {
-    const scrollpos = window.scrollY;
-    if(scrollpos >= window.innerHeight) {
-      if(!topNavChanged) {
-        document.getElementById("topnav").classList.add('bg-active');
-        topNavChanged = true;
-      }
-    } else {
-      if(topNavChanged) {
-        document.getElementById("topnav").classList.remove('bg-active');
-        topNavChanged = false;
-      }
-    }
-  })
-window.setTimeout(function() {
-  new InstagramFeed({
-      'username': 'redstone_aero',
-      'container': document.getElementById("instagram-feed"),
-      'display_profile': true,
-      'display_biography': true,
-      'display_gallery': true,
-      'callback': null,
-      'styling': true,
-      'items': 8,
-      'items_per_row': 4,
-      'margin': 1,
-      'lazy_load': true,
-      'on_error': console.error
-  }); }, 3000)
 </script>
 </body>
 </html>
