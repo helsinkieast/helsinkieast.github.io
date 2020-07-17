@@ -223,7 +223,7 @@
 
 <script id="full-screen-section-template" type="text/x-handlebars-template">
 <section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-12 bg-cover bg-center bg-shark {{fields.specialClasses}}" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
-  <div class="flex flex-col items-center full-screen-section-text">
+  <div class="flex flex-col items-center full-screen-section-text {{fields.specialClasses}}">
     <style>
       .full-screen-section-text {
         max-width: 920px;
@@ -257,13 +257,16 @@
         max-width: 850px;
         margin-bottom: 10px;
       }
+      .full-screen-section-text.quotes {
+        min-height: 320px;
+        justify-content: center;
+      }
       .full-screen-section-text blockquote {
         display: none;
         font-size: 65px;
         line-height: 1.2;
         color: white;
         text-align: center;
-        min-height: 320px;
       }
       .full-screen-section-text blockquote.block {
         display: block;
@@ -273,7 +276,7 @@
       }
       .full-screen-section-text .arrows .arrow {
         position: absolute;
-        top: 50px;
+        top: 140px;
         color: white;
         font-size: 70px;
       }
