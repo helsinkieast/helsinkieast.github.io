@@ -539,7 +539,7 @@
     color: rgb(133, 133, 126);
   }
 </style>
-<section class="py-16 px-12 bg-base mt-24 image-grid {{fields.specialClasses}}">
+<section class="py-16 px-12 bg-base image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
   <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
@@ -560,7 +560,7 @@
 
 <script id="events-section-template" type="text/x-handlebars-template">
 <style>
-  .events-section > h2 {
+  .events-section h2 {
     color: white;
     text-transform: uppercase;
     font-size: 20px;
@@ -613,6 +613,9 @@
     {{/each}}
   </div>
   {{/if}}
+  <div class="text-center text-base">
+    {{{richTextRender fields.bottomText}}}
+  </div>
 </section>
 </script>
 
