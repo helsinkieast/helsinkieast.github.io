@@ -507,6 +507,9 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .image-grid.redstone-logo {
+    margin-top: 0;
+  }
   .image-grid.redstone-logo .image-gallery {
     max-width: 650px;
     margin-left: auto;
@@ -533,7 +536,7 @@
     color: rgb(133, 133, 126);
   }
 </style>
-<section class="py-16 px-12 bg-base image-grid {{fields.specialClasses}}">
+<section class="py-16 px-12 bg-base mt-24 image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.images}}
   <div class="my-8 grid {{#if fields.columns}}grid-cols-{{fields.columns}}{{else}}grid-cols-3{{/if}} gap-2 image-gallery {{#if fields.hoverEffect}}hover-effect{{/if}}">
