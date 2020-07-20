@@ -224,6 +224,42 @@
     .banner {
       background-attachment: fixed;
     }
+    .h-screen.banner {
+      height: 28rem;
+    }
+    .checklist .checklist {
+      color: rgb(133, 133, 126);
+    }
+    .checklist .checklist p:first-of-type,
+    .checklist .checklist p:last-of-type {
+      display: none;
+    }
+    .checklist .checklist p {
+      font-family: monospace;
+      font-size: 20px;
+    }
+    .checklist .checklist i {
+      display: none;
+      font-style: normal;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .checklist .checklist p {
+        display: flex;
+        justify-content: space-between;
+        max-width: 720px;
+        white-space: nowrap;
+      }
+      .checklist .checklist i {
+        display: inline;
+      }
+    }
+    .checklist .checklist i:after {
+      content: '................................................................................................................';
+    }
+    .page.aerodrome-operations .atis-wrapper .credits {
+      display: none;
+    }
   </style>
 </head>
 
@@ -367,29 +403,11 @@
         </div>
       </div>
     </div>
-    <div class="uppercase cond">Developed by<img class="w-32" src="redstoneaero_logo_yellowwhite.png" alt="Redstone Aero" /></div>
+    <div class="uppercase cond credits">Developed by<img class="w-32" src="redstoneaero_logo_yellowwhite.png" alt="Redstone Aero" /></div>
   </div>
   {{/if}}
-  {{#if (includes fields.specialClasses 'checklist')}}
-    <table class="mx-auto checklist">
-      <tbody class="text-white">
-        <tr><td>ICAO code:</td><td>EFPR</td></tr>
-        <tr><td>Unicom frequency:</td><td>118.475 MHz</td></tr>
-        <tr><td>Weather:</td><td>Automated weather station, ATIS 135.725 MHz</td></tr>
-        <tr><td>ACC Radio Frequency:</td><td>Helsinki Control 136.650 MHz</td></tr>
-        <tr><td>Runway:</td><td>1.000 x 30 metres, to be extended to 1.800</td></tr>
-        <tr><td>Instrument approaches:</td><td>LPV</td></tr>
-        <tr><td>Airspace:</td><td>Class G up to FL 95</td></tr>
-        <tr><td>Available fuel:</td><td>Jet A1, Avgas 100LL</td></tr>
-        <tr><td>Aerodrome coordinates:</td><td>N60°28,7´, E26°35,6´</td></tr>
-        <tr><td>Closest alternate airport:</td><td>EFHK, 40 NM WSW</td></tr>
-        <tr><td>Unmanned aircraft & drone:</td><td>PPR</td></tr>
-        <tr><td>Aerodrome operator:</td><td>Redstone AERO Oy Ltd</td></tr>
-      <tbody>
-    </table>
-  {{/if}}
   {{#if (includes fields.specialClasses 'webcam')}}
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/CvOB-Is_yYU?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="mx-auto" width="560" height="315" src="https://www.youtube-nocookie.com/embed/CvOB-Is_yYU?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   {{/if}}
 </section>
 </script>
@@ -486,6 +504,11 @@
   }
   .image-grid.team .image-gallery {
     max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .image-grid.redstone-logo .image-gallery {
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -697,6 +720,9 @@ Handlebars.registerHelper('richTextRender', function(richText) {
       [BLOCKS.PARAGRAPH]: (node, next) => {
         if(node.content[0].value === "<flex>") return `<div class="flex w-full justify-between mt-4 rich-flex">`
         if(node.content[0].value === "</flex>") return `</div>`
+        if(node.content[0].value.includes("<Checklist>") && node.content[0].value.includes("</Checklist>")) {
+          return `<div className="checklist"><p>${next(node.content).replace(/\n/g, '</p><p>').replace(/: /g, ":<i> </i>")}</p></div>`
+        }
         return `<p>${next(node.content).replace(/\n/g, '<br/>')}</p>`
       },
     }
