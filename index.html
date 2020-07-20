@@ -260,6 +260,9 @@
     .page.aerodrome-operations .atis-wrapper .credits {
       display: none;
     }
+    .text-base {
+      color: rgb(133, 133, 126);
+    }
   </style>
 </head>
 
@@ -694,12 +697,33 @@
 {{#each fields.sections}}
   {{> (lookup sys.contentType.sys 'id')}}
 {{/each}}
-<section class="bg-base">
+<section class="bg-base px-12">
   <div class="h-112 bg-blue-700 bg-cover bg-center footer-image banner" style="background-image: url('footer.jpg')"></div>
   <div class="text-center text-white py-12">
-    <img class="w-128 m-auto" src="HEA_logo_vaaka.png" alt="Helsinki East Aerodrome" />
-    <p class="uppercase mt-8">AVIATION HUB, INDUSTRY NETWORK AND AEROSPACE TESTBED</p>
-    <p class="text-xs text-gray-400 mt-12 max-w-sm mx-auto">While most of the styles in Preflight are meant to go unnoticed — they simply make things behave more like you'd expect them to — some are more opinionated and can be surprising when you first encounter them.</p>
+    <img class="w-64 m-auto mb-8" src="HEA_logo_vaaka.png" alt="Helsinki East Aerodrome" />
+    <div class="flex justify-between">
+      <div class="md:w-1/4">
+        <p class="uppercase cond">Newsletter</p>
+        <p class="text-xs text-base mt-2">Want to know what's happening in future aviation? Join the inner circle of the industry - We'll keep you posted on the latest news</p>
+        <input class="bg-transparent border-solid border border-white rounded-lg py-1 px-4 mt-2" type="text" placeholder="Email" />
+        <button class="text-base block mx-auto py-1 px-4 mt-2" type="button"><img class="inline w-8 mr-2" src="arrow.png" />Subscribe</button>
+      </div>
+      <div>
+        <p class="uppercase cond">AVIATION HUB, INDUSTRY NETWORK AND AEROSPACE TESTBED</p>
+        <p class="text-xs text-base mt-2">Lentokenttä 1, 490270 Pyhtää Kk, Finland</p>
+      </div>
+      <div class="md:w-1/4">
+        <p class="uppercase cond">Follow us on social media</p>
+        <div class="flex align-center justify-center">
+          <a href="facebook.com"><img class="w-12" src="fb.png" /></a>
+          <a href="facebook.com"><img class="w-12" src="ig.png" /></a>
+          <a href="facebook.com"><img class="w-12" src="yt.png" /></a>
+          <a href="facebook.com"><img class="w-12" src="in.png" /></a>
+        </div>
+      </div>
+  </div>
+  <div class="mt-24 mb-4">
+    <a class="text-base" href="/privacy-policy">Helsinki-East Privacy Policy and Terms of Use</a>
   </div>
 </section>
 <div>
