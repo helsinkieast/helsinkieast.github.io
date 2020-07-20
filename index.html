@@ -219,8 +219,8 @@
     .instagram_profile {
       display: none;
     }
-    #instagram-feed {
-      margin-top: 100px;
+    .bg-lightgray {
+      background-color: #96958e;
     }
   </style>
 </head>
@@ -319,11 +319,12 @@
       </div>
     {{/if}}
     {{#if (includes fields.specialClasses 'social-media')}}
-      <div class="flex">
-       <iframe class="mr-4" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fredstone-aero&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+      <div class="md:flex mt-4">
+       <iframe class="mr-4 mb-4" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fredstone-aero&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
         <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FHelsinki-East-Aerodrome-102078894864140&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
       </div>
-<div id="instagram-feed"></div>
+      <h2 class="mt-12">Instagram</h2>
+      <div id="instagram-feed"></div>
     {{/if}}
   </div>
   {{#if fields.imageGallery}}
@@ -479,22 +480,31 @@
     font-size: 20px;
     text-transform: uppercase;
   }
+  .image-grid.team .image-gallery {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .image-grid.team .image-gallery img {
     filter: grayscale(1);
   }
   .image-grid .image-gallery h3 {
-    font-size: 20px;
+    font-size: 16px;
     text-transform: uppercase;
     color: white;
     text-align: center;
     margin-top: 20px;
   }
   .image-grid .image-gallery p {
+    font-size: 12px;
     color: white;
     text-align: center;
     color: rgb(86, 86, 86);
   }
-
+  .rich-flex {
+    font-size: 20px;
+    color: rgb(133, 133, 126);
+  }
 </style>
 <section class="py-16 px-12 bg-base image-grid {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
@@ -526,15 +536,46 @@
   .events-section {
     color: white;
   }
+  .events-section .events {
+    max-width: 720px;
+  }
+  .events-section .event {
+    height: 145px;
+  }
+  .events-section .event img {
+    object-fit: cover;
+  }
+  .events-section .event h3 {
+    font-size: 20px;
+    line-height: 1.1;
+  }
+  .events-section .event .date {
+    background: rgb(38,83,79);
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .events-section .event .date span:first-of-type {
+    font-size: 27px;
+    line-height: 1;
+    display: block;
+  }
 </style>
 <section class="py-16 px-12 bg-base events-section {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.events}}
-  <div class="my-8 events">
+  <div class="m-auto my-8 events">
     {{#each fields.events}}
-      <div class="event">
-        <h3>{{fields.title}}</h3>
-        {{{richTextRender fields.description}}}
+      <div class="event flex mb-4 bg-lightgray">
+        <img class="w-64 mr-2" src="{{fields.image.fields.file.url}}" alt="" />
+        <div class="py-4 flex-grow text-white">
+          <h3 class="mb-2">{{fields.title}}</h3>
+        </div>
+        <p class="date flex-shrink-0">{{{spanSplit fields.date}}}</p>
+        <!--{{{richTextRender fields.description}}}-->
       </div>
     {{/each}}
   </div>
@@ -552,7 +593,6 @@
 }
 .articles {
   max-width: 720px;
-  margin: 0 auto;
 }
 .article {
   padding: 15px 0;
@@ -563,18 +603,25 @@
 .article .title {
   font-size: 20px;
 }
+.article:hover .title {
+  text-decoration: underline;
+}
 .article .source {
   font-weight: bold;
+}
+.article .date {
+  font-size: 14px;
 }
 </style>
 <section class="py-16 px-12 bg-base articles-section {{fields.specialClasses}}">
   {{{richTextRender fields.topText}}}
   {{#if fields.articles}}
-  <div class="my-8 articles">
+  <div class="m-auto my-8 articles">
     {{#each fields.articles}}
       <a class="article" href="{{fields.link}}" target="_blank">
         <p class="title">{{fields.title}}</p>
         <p class="source">{{fields.source}}</p>
+        <p class="date">{{fields.date}}</p>
       </a>
     {{/each}}
   </div>
@@ -644,7 +691,7 @@ Handlebars.registerHelper('richTextRender', function(richText) {
   const richTextOptions = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, next) => {
-        if(node.content[0].value === "<flex>") return `<div class="flex w-full justify-between text-white">`
+        if(node.content[0].value === "<flex>") return `<div class="flex w-full justify-between mt-4 rich-flex">`
         if(node.content[0].value === "</flex>") return `</div>`
         return `<p>${next(node.content).replace(/\n/g, '<br/>')}</p>`
       },
@@ -654,6 +701,9 @@ Handlebars.registerHelper('richTextRender', function(richText) {
 })
 Handlebars.registerHelper('includes', function(sentence, word) {
   return sentence && sentence.includes(word);
+})
+Handlebars.registerHelper('spanSplit', function(text) {
+  return text.split(" ").map(s => "<span>"+s+"</span>").join("")
 })
 
 const client = contentful.createClient({
