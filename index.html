@@ -265,7 +265,7 @@
 </div>
 
 <script id="full-screen-section-template" type="text/x-handlebars-template">
-<section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-12 bg-cover bg-center bg-shark {{fields.specialClasses}}" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
+<section class="relative {{#if fields.fixedHeight}}h-screen{{/if}} py-24 bg-cover bg-center bg-shark {{fields.specialClasses}}" style="background-image: url('{{fields.backgroundImage.fields.file.url}}')">
   <div class="flex flex-col items-center full-screen-section-text {{fields.specialClasses}}">
     <style>
       .full-screen-section-text {
@@ -278,7 +278,7 @@
         font-size: 65px;
         line-height: 1;
         margin-bottom: 10px;
-        margin-top: 80px;
+        margin-top: 60px;
         color: #25524e;
         text-align: center;
       }
@@ -741,7 +741,7 @@ Handlebars.registerHelper('richTextRender', function(richText) {
   const richTextOptions = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, next) => {
-        if(node.content[0].value === "<flex>") return `<div class="flex w-full justify-between mt-4 rich-flex">`
+        if(node.content[0].value === "<flex>") return `<div class="flex w-full justify-between mt-4 rich-flex mb-12">`
         if(node.content[0].value === "</flex>") return `</div>`
         if(node.content[0].value.includes("<Checklist>") && node.content[0].value.includes("</Checklist>")) {
           return `<div className="checklist"><p>${next(node.content).replace(/\n/g, '</p><p>').replace(/: /g, ":<i> </i>")}</p></div>`
